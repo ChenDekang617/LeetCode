@@ -1,0 +1,25 @@
+class Solution:
+    def longestWPI(self, hours: List[int]) -> int:
+        for i in range(len(hours)):
+            if hours[i] > 8:
+                hours[i] = -1
+            else:
+                hours[i] = 1
+        # 维护前缀和索引
+        hashmap = {}
+        hashmap[-1] = 0
+        ans = 0
+        sum_ = 0
+        for i in range(len(hours)):
+            sum_ += hours[i]
+            if sum_ < 0:
+                ans = max(ans,i + 1)
+            else:
+                # 优先考虑sum_ + 1的位置
+                if (sum_ + 1) in hashmap.keys():
+                    ans = max(ans,i - hashmap[sum_ + 1])
+            # 若存在相同前缀和,记录最初的索引
+            if sum_ not in hashmap.keys():
+               hashmap[sum_] = i
+        return ans
+            
