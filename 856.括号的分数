@@ -15,5 +15,5 @@ class Solution:
                     left -= 1
                     i += 1
                     score *= 2
-                res += score * 2**left # 核心，left的余数决定了嵌套的层数
+                res += score * 2**left 
         return res
