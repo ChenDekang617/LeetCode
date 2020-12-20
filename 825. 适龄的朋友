@@ -1,0 +1,15 @@
+class Solution:
+    def numFriendRequests(self, ages: List[int]) -> int:
+        ans = 0
+        dic = dict(collections.Counter(ages))
+        dic = dict(sorted(dic.items(), key = lambda x : x[0], reverse = True))
+        for (k,v) in dic.items():
+            if k > 14 and v > 1:
+                ans += v*(v-1)
+        single_ages = list(dic.keys())
+        for i in range(len(single_ages)):
+            for j in range(i+1,len(single_ages)):
+                if(single_ages[i]<(single_ages[j]*2-14)):
+                    ans += dic.get(single_ages[j]) * dic.get(single_ages[i])
+        return ans
+
