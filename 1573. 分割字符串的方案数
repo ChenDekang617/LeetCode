@@ -1,0 +1,32 @@
+class Solution:
+    def numWays(self, s: str) -> int:
+        def findone(s, start, num):
+            cnt = 0
+            for i in range(start,len(s)):
+                if s[i] == '1':
+                    cnt += 1
+                if cnt == num:
+                    return i
+        def findnextone(s, start):
+            for i in range(start, len(s)):
+                if s[i] == '1':
+                    return i
+
+        ones = s.count('1')
+        Module = 10**9 +7
+        if ones % 3 != 0:
+            return 0
+        if ones == 0:
+            cnt = 0
+            LEN = len(s)
+            return ((LEN-1)*(LEN-2)//2) % Module
+        num = ones//3
+
+        i = findone(s, 0, num)
+        j = findnextone(s, i+1)
+        free1 = j-i
+        i = findone(s, j, num)
+        j = findnextone(s, i+1)
+        free2 = j-i
+        return (free1*free2)% Module
+
