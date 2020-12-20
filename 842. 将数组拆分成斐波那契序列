@@ -1,0 +1,22 @@
+class Solution:
+    def splitIntoFibonacci(self, S: str) -> List[int]:
+        ret = []
+        maxx = (1 << 31) - 1
+        for i in range(1, len(S)):
+            for j in range(1, len(S)):
+                if i + j >= len(S):
+                    break
+                tmp = [int(S[0:i]), int(S[i:i + j])]
+                if len(str(tmp[0])) != i or len(str(tmp[1])) != j or tmp[0] > maxx or tmp[1] > maxx:
+                    break
+                ok, k, indx = 1, i + j, 1
+                while S.startswith(str(tmp[indx - 1] + tmp[indx]), k):
+                    summ = tmp[indx - 1] + tmp[indx]
+                    if summ > maxx:
+                        break;
+                    indx += 1
+                    tmp.append(summ)
+                    k = k + len(str(summ))
+                if k >= len(S):
+                    return tmp
+        return ret
