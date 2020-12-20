@@ -1,0 +1,10 @@
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        start, poiDict, ans = 0, {}, 0
+        for i, c in enumerate(nums):
+            if c in poiDict and poiDict[c] >= start:
+                ans = max(ans, sum(list(nums[start : i])))
+                start = poiDict[c] + 1
+            poiDict[c] = i
+        return max(ans, sum(nums[start : len(nums)]))
+
