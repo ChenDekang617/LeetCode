@@ -1,0 +1,12 @@
+class Solution:
+    def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
+        if not A or not B: return False
+        if self.isSubtree(A,B):
+            return True
+        else:
+            return self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
+    def isSubtree(self,A,B):
+        if not B: return True
+        if not A: return False
+        if A.val==B.val: return self.isSubtree(A.left,B.left) and self.isSubtree(A.right,B.right)
+        else: return False
