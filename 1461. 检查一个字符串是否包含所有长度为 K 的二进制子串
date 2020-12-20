@@ -1,0 +1,12 @@
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        if k > len(s):
+            return False
+
+        seq = set()
+        for i in range(len(s) - k + 1):
+            seq.add(s[i:i + k])
+
+        return len(seq) == 2 ** k
+
+        
